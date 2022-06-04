@@ -1,4 +1,5 @@
-import { Controller, Post, Body, Get, HttpException, Param, ParseIntPipe, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, HttpException, Param, ParseIntPipe, Put, Delete, UseFilters } from '@nestjs/common';
+import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
 import { TransactionDTO } from './transaction.dto';
 import { TransactionInterface } from './transaction.interface';
 import { TransactionService } from './transaction.service';
@@ -16,7 +17,7 @@ export class TransactionController {
        return transactions;
     }
 
-    @Get('GetTransaction')
+    @Get('GetTransaction/:typeCode')
     public async handleGetTransaction(
         @Param('typeCode', ParseIntPipe) transactionCode: number
     ): Promise<TransactionInterface | HttpException> {
@@ -28,7 +29,7 @@ export class TransactionController {
     public async handleInsertTransaction(
         @Body() requestBody: TransactionDTO
     ): Promise<TransactionInterface | HttpException> {
-       console.log(requestBody);
+       
        const insertedTransaction = await this.transactionService.insertTransaction(requestBody);
        return insertedTransaction;
     }

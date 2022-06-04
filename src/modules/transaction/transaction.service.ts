@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Transaction, TransactionDocument } from 'src/models/transaction/transaction.model';
@@ -12,8 +12,8 @@ export class TransactionService {
     ) {}
 
     public async insertTransaction(transaction: TransactionInterface): Promise<TransactionInterface | HttpException> {
-        try {
             const { typeCode, typeName, iconImageUrl, categories } = transaction;
+
             const newTransaction = new this.transactionModel({
                 typeCode,
                 typeName,
@@ -23,46 +23,35 @@ export class TransactionService {
 
             const insertedTransaction = await newTransaction.save();
             return insertedTransaction;
-
-        } catch (error) {
-           return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     public async getTransactions(): Promise<Array<TransactionInterface> | HttpException> {
-        try {
             const transactions = await this.transactionModel.find();
             return transactions;
-        } catch (error) {
-            return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     public async getTransaction(transactionCode: number): Promise<TransactionInterface | HttpException> {
-        try {
-            const transaction = await this.transactionModel.findOne({ typeCode: transactionCode });
+       const transaction = await this.transactionModel.findOne({ typeCode: transactionCode });
+            if (!transaction) {
+                throw new NotFoundException(`Transaction with code ${transactionCode} not found`);
+            }
             return transaction;
-        } catch (error) {
-            return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     public async updateTransaction(transaction: TransactionInterface): Promise<TransactionInterface | HttpException> {
-        try {
             const { typeCode, typeName, iconImageUrl, categories } = transaction;
             const updatedTransaction = await this.transactionModel.findOneAndUpdate({ typeCode }, { typeCode, typeName, iconImageUrl, categories });
+            if(!updatedTransaction) {
+                throw new NotFoundException(`Transaction with code ${typeCode} not found`);
+            }
             return updatedTransaction;
-        } catch (error) {
-            return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     public async deleteTransaction(transactionCode: number): Promise<TransactionInterface | HttpException> {
-        try {
             const deletedTransaction = await this.transactionModel.findOneAndDelete({ typeCode: transactionCode });
+            if(!deletedTransaction) {
+                throw new NotFoundException(`Transaction with code ${transactionCode} not found`);
+            }
             return deletedTransaction;
-        } catch (error) {
-            return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 }
