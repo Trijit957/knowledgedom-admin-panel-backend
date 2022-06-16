@@ -1,7 +1,7 @@
 import { Type } from "class-transformer";
 import { IsArray, IsDefined, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 
-class CategoryDTO {
+export class CategoryDTO {
 
   @IsNumber()
   @IsDefined()

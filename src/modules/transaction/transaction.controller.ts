@@ -1,5 +1,4 @@
-import { Controller, Post, Body, Get, HttpException, Param, ParseIntPipe, Put, Delete, UseFilters } from '@nestjs/common';
-import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
+import { Controller, Post, Body, Get, HttpException, Param, ParseIntPipe, Put, Delete } from '@nestjs/common';
 import { TransactionDTO } from './transaction.dto';
 import { TransactionInterface } from './transaction.interface';
 import { TransactionService } from './transaction.service';
