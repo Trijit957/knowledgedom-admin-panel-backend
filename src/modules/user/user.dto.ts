@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsArray, IsBoolean, IsDateString, IsDefined, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
+import { IsArray, IsBoolean, IsDateString, IsDefined, isNotEmpty, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 import { CategoryDTO } from "../transaction/transaction.dto";
 
 export class UserDTO {
@@ -24,5 +24,29 @@ export class UserDTO {
     @IsDefined()
     @IsArray()
     public categories: Array<CategoryDTO> | [];
+}
+
+export class UserCategoryDTO extends CategoryDTO {
+
+    @IsString()
+    @IsDefined()
+    @IsNotEmpty()
+    public email: string;
+}
+
+export class UserEmailDTO {
+    
+    @IsString()
+    @IsDefined()
+    @IsNotEmpty()
+    public email: string;
+}
+
+export class UserCategoryCodeDTO extends UserEmailDTO {
+    
+    @IsNumber()
+    @IsDefined()
+    @IsNotEmpty()
+    public categoryCode: number;
 }
 
