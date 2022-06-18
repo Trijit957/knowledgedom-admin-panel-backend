@@ -5,7 +5,7 @@ export class CategoryDTO {
 
   @IsNumber()
   @IsDefined()
-  categoryCode: number;
+  public categoryCode: number;
 
   @IsString()
   @IsDefined()
@@ -22,7 +22,7 @@ export class TransactionDTO {
 
     @IsNumber()
     @IsDefined()
-    typeCode: number;
+    public typeCode: number;
 
     @IsString()
     @IsDefined()

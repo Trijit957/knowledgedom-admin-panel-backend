@@ -22,10 +22,15 @@ export class AuthMiddleware implements NestMiddleware {
     private defaultApp: any;
 
     constructor() {
-        this.defaultApp = firebase.initializeApp({
-            credential: firebase.credential.cert(firebase_params),
-           // databaseURL: "https://fir-auth-bd895.firebaseio.com"
-        });
+        if(firebase.apps.length === 0) {
+            this.defaultApp = firebase.initializeApp({
+                credential: firebase.credential.cert(firebase_params),
+               // databaseURL: "https://fir-auth-bd895.firebaseio.com"
+            });
+        } else {
+            this.defaultApp = firebase.app();
+        }
+   
     }
 
     use(req: Request, res: Response, next: Function) {
