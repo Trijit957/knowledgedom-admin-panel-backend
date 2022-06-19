@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsArray, IsBoolean, IsDateString, IsDefined, isNotEmpty, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
+import { IsArray, IsDefined, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 import { CategoryDTO } from "../transaction/transaction.dto";
 
 export class UserDTO {

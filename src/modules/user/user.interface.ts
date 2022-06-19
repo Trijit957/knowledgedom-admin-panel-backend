@@ -19,3 +19,11 @@ export interface UserCategoryAddResponseInterface {
     userInfo: UserInterface;
 }
 
+export enum UserCategoryResponseMessageEnum {
+    CATEGORY_ADDED = "Category added successfully!",
+    CATEGORY_UPDATED = "Category updated successfully!",
+    CATEGORY_DELETED = "Category deleted successfully!",
+    EMAIL_REQUIRED = "Email is required!",
+    EMAIL_CATEGORY_REQUIRED = "Email and Category are required!"
+}
+

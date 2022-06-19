@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { TransactionModule } from './modules/transaction/transaction.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
+import { UserTransactionModule } from './modules/user-transaction/user-transaction.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { UserModule } from './modules/user/user.module';
 
   TransactionModule,
   AuthModule,
-  UserModule
+  UserModule,
+  UserTransactionModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,7 +4,7 @@ import { UserCategoryCodeDTO, UserCategoryDTO, UserEmailDTO } from "./user.dto";
 import { UserCategoryAddResponseInterface } from "./user.interface";
 import { UserService } from "./user.service";
 
-@Controller('UserApi/UserTransactionApi') 
+@Controller('UserApi/UserCategoryApi') 
 export class UserController {
 
     constructor(

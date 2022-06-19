@@ -4,7 +4,7 @@ import { Model } from "mongoose";
 import { User, UserDocument } from "src/models/user/user.model";
 import { CategoryInterface } from "../transaction/transaction.interface";
 import { UserCategoryDTO } from "./user.dto";
-import { UserCategoryAddResponseInterface } from "./user.interface";
+import { UserCategoryAddResponseInterface, UserCategoryResponseMessageEnum } from "./user.interface";
 
 @Injectable()
 export class UserService {
@@ -15,7 +15,7 @@ export class UserService {
 
     public async getCategory(email: string): Promise<Array<CategoryInterface> | HttpException> {
             if(!email) {
-                throw new BadRequestException("Email is required!");
+                throw new BadRequestException(UserCategoryResponseMessageEnum.EMAIL_REQUIRED);
             } else {
                 const user = await this.userModel.findOne({ email });
                 if (!user.categories) {
@@ -36,7 +36,7 @@ export class UserService {
 
         return {
             isCategoryAdded: true,
-            message: "Category added successfully!",
+            message: UserCategoryResponseMessageEnum.CATEGORY_ADDED,
             userInfo: updatedUser
         };
     }
@@ -58,7 +58,7 @@ export class UserService {
 
         return {
             isCategoryUpdated: true,
-            message: "Category updated successfully!",
+            message: UserCategoryResponseMessageEnum.CATEGORY_UPDATED,
             userInfo: updatedUser
         }
     }
@@ -68,7 +68,7 @@ export class UserService {
         const { email, categoryCode } = userWithCategory;
 
         if(!email || !categoryCode) {
-            throw new BadRequestException("Email and categoryCode are required!");
+            throw new BadRequestException(UserCategoryResponseMessageEnum.EMAIL_CATEGORY_REQUIRED);
         } else {
                     const updatedUser = await this.userModel.findOneAndUpdate(
                         { email },
@@ -78,7 +78,7 @@ export class UserService {
 
             return {
                 isCategoryDeleted: true,
-                message: "Category deleted successfully!",
+                message: UserCategoryResponseMessageEnum.CATEGORY_DELETED,
                 userInfo: updatedUser
             }
         }
