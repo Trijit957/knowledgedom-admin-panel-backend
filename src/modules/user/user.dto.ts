@@ -1,5 +1,7 @@
 import { Type } from "class-transformer";
-import { IsArray, IsBoolean, IsDateString, IsDefined, isNotEmpty, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
+import { IsArray, IsDefined, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
+import { Types } from "mongoose";
+import { UserDocument } from "src/models/user/user.model";
 import { CategoryDTO } from "../transaction/transaction.dto";
 
 export class UserDTO {
@@ -40,6 +42,14 @@ export class UserEmailDTO {
     @IsDefined()
     @IsNotEmpty()
     public email: string;
+}
+
+export class UserIdDTO {
+
+    @IsString()
+    @IsDefined()
+    @IsNotEmpty()
+    public userId: string | Types.ObjectId | UserDocument;
 }
 
 export class UserCategoryCodeDTO extends UserEmailDTO {
