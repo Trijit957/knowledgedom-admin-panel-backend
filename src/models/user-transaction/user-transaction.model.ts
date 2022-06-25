@@ -25,8 +25,7 @@ export class UserTransaction {
   @Prop(raw({
       code: {
           type: Number,
-          required: true,
-          unique: true
+          required: true
       },
       name: {
           type: String,
@@ -42,7 +41,6 @@ export class UserTransaction {
     code: {
         type: Number,
         required: true,
-        unique: true
     },
     name: {
         type: String,

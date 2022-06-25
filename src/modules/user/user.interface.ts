@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+import { UserDocument } from "src/models/user/user.model";
 import { CategoryInterface } from "../transaction/transaction.interface";
 
 export interface UserInterface {
@@ -9,6 +11,10 @@ export interface UserInterface {
 
 export interface UserCategoryInterface extends CategoryInterface {
     email: string;
+}
+
+export interface UserIdInterface {
+    userId: string | Types.ObjectId | UserDocument;
 }
 
 export interface UserCategoryAddResponseInterface {
