@@ -1,53 +1,37 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
 import * as firebase from 'firebase-admin';
-import * as serviceAccount from '../config/firebase-service-account.json';
+import * as serviceAccount from '../config/google-services.json';
 
-const firebase_params = {
-    type: serviceAccount.type,
-    projectId: serviceAccount.project_id,
-    privateKeyId: serviceAccount.private_key_id,
-    privateKey: serviceAccount.private_key,
-    clientEmail: serviceAccount.client_email,
-    clientId: serviceAccount.client_id,
-    authUri: serviceAccount.auth_uri,
-    tokenUri: serviceAccount.token_uri,
-    authProviderX509CertUrl: serviceAccount.auth_provider_x509_cert_url,
-    clientC509CertUrl: serviceAccount.client_x509_cert_url
-}
+import { LoginTicket, OAuth2Client } from 'google-auth-library'; 
 
+const googleClientId = serviceAccount.client[0].oauth_client[1].client_id;
+
+const client = new OAuth2Client(googleClientId);
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
 
-    private defaultApp: any;
-
-    constructor() {
-        if(firebase.apps.length === 0) {
-            this.defaultApp = firebase.initializeApp({
-                credential: firebase.credential.cert(firebase_params),
-               // databaseURL: "https://fir-auth-bd895.firebaseio.com"
-            });
-        } else {
-            this.defaultApp = firebase.app();
-        }
-   
-    }
+    constructor() { }
 
     use(req: Request, res: Response, next: Function) {
         const token = req.headers.authorization;
         if (token != null && token != '') {
-            this.defaultApp.auth()
-            .verifyIdToken(token.replace('Bearer ', ''))
-                .then(async decodedToken => {
-                    const user = {
-                        email: decodedToken.email
+
+            client.verifyIdToken({
+                idToken: token.replace('Bearer ', ''),
+                audience: googleClientId
+            }).then((decodedToken: LoginTicket) => {
+
+                const user = {
+                        email: decodedToken.getPayload().email
                     }
-                    req['user'] = user;
-                    next();
-                }).catch(error => {
-                    console.error(error);
-                    this.accessDenied(req.url, res);
-                });
+                req['user'] = user;
+                next();
+
+            }).catch((err) => {
+                console.error(err);
+                this.accessDenied(req.url, res);
+            }) 
         } else {
             next();
         }

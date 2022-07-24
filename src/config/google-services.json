@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "254470583652",
+    "project_id": "expencer-auth-backend",
+    "storage_bucket": "expencer-auth-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254470583652:android:669ada604a598888217671",
+        "android_client_info": {
+          "package_name": "com.scripters.expencer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254470583652-kq776sdbp5st1p009eoial66hqehp1gr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scripters.expencer",
+            "certificate_hash": "8935e34828c68a53b0564a0c1bcea53c432e6020"
+          }
+        },
+        {
+          "client_id": "254470583652-8hohng7goj1cvvoh1kks042n5o56sgof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK9r_jDOhwVSLP6Hm-EJ2LwQpQtGJM9lQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254470583652-8hohng7goj1cvvoh1kks042n5o56sgof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
