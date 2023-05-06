@@ -5,7 +5,9 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
 
 const whitelist = [
   "http://localhost:8100",
-  "http://192.168.0.5:8100"
+  "http://192.168.0.4:8100",
+  "http://192.168.0.5:8100",
+  "http://192.168.0.6:8100"
 ]
 
 async function bootstrap() {
